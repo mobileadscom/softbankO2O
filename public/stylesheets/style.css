@@ -1,0 +1,95 @@
+html {
+  height: 100%;
+}
+
+body {
+	margin: 0px;
+  text-align: center;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+@media( min-width: 1px) {
+  .banner {
+    height: 65px;
+  }
+
+  .terms {
+    max-height: 200px;
+  }
+}
+
+@media( min-width: 768px) {
+  .terms {
+    max-height: 400px;
+  }
+}
+
+@media( min-width: 996px) {
+  .banner {
+    height: 90px;
+  }
+}
+.banner {
+  width: 100%;
+  background-color: #EBEBEB;
+  text-align: left;
+}
+
+.banner img {
+  height: 100%;
+  display: block;
+  margin: auto;
+}
+
+.loading-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
+  color: #E54C3C;
+  font-weight: 600;
+}
+
+.msg-wrapper {
+  font-weight: 600;
+}
+
+.terms {
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #AAA;
+  padding: 12px;
+  font-size: 12px;
+  text-align: left;
+  margin-top: 15px;
+}
+
+.terms ul {
+  padding-left: 20px;
+}
+
+.terms::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+.terms::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+ 
+/* Handle */
+.terms::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+.terms::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
