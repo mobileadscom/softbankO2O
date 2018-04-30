@@ -19,13 +19,40 @@ div {
   }
 
   .terms {
-    max-height: 200px;
+    height: 250px;
+    font-size: 14px;
   }
+  
+  .terms .instruction {
+    font-size: 16px;
+  }
+
+  .terms .points .points-title:before {
+    height: 15px;
+    width: 15px;
+  }
+  
+  #page-wrapper {
+    height: calc(100% - 65px);
+  }
+}
+
+@media( min-width: 480px) {
 }
 
 @media( min-width: 768px) {
   .terms {
-    max-height: 400px;
+    height: 400px;
+    font-size: 16px;
+  }
+
+  .terms .instruction {
+    font-size: 20px;
+  }
+
+  .terms .points .points-title:before {
+    height: 18px;
+    width: 18px;
   }
 }
 
@@ -33,7 +60,16 @@ div {
   .banner {
     height: 90px;
   }
+
+  #page-wrapper {
+    height: calc(100% - 90px);
+  }
 }
+
+.red {
+  color: #E54C3C;
+}
+
 .banner {
   width: 100%;
   background-color: #EBEBEB;
@@ -44,6 +80,14 @@ div {
   height: 100%;
   display: block;
   margin: auto;
+}
+
+#page-wrapper {
+  position: relative;
+}
+
+.page {
+  text-align: center;
 }
 
 .loading-block {
@@ -65,9 +109,11 @@ div {
   overflow-x: hidden;
   border: 1px solid #AAA;
   padding: 12px;
-  font-size: 12px;
   text-align: left;
-  margin-top: 15px;
+  position: relative;
+  width: 90%;
+  margin: 15px auto 0px;
+  max-width: 1000px;
 }
 
 .terms ul {
@@ -92,4 +138,38 @@ div {
 /* Handle on hover */
 .terms::-webkit-scrollbar-thumb:hover {
   background: #555; 
+}
+
+.terms .instruction {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 600;
+}
+
+.terms .points {
+  position: absolute;
+  top: 100%;
+}
+
+.terms .points .points-title:before {
+  content: "";
+  background-color: black;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.agree-box {
+  margin: auto;
+  width: 90%;
+  margin-top: 20px;
+}
+
+.pageQuestion {
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  font-size: 16px;
 }

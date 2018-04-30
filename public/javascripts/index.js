@@ -1,4 +1,8 @@
+import miniPages from './miniPages';
+import singleAnswerQuestion from './singleAnswerQuestion';
 import '../stylesheets/style.css';
+import '../stylesheets/miniCheckbox.css';
+
 
 var getParams = function() {
   var query_string = {};
@@ -21,17 +25,51 @@ var getParams = function() {
   return query_string;
 }
 
-var app = {
-  init: function() {
-  	console.log('hello');
-  }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-  app.init();
+	/* init pagination */
+  window.appPages = new miniPages({
+  	pageWrapperClass: document.getElementById('page-wrapper'),
+  	pageClass: 'page',
+  	initialPage: document.getElementById('loadingPage'),
+  	pageButtonClass: 'pageBtn'
+  });
+
+  window.q1 = new singleAnswerQuestion({
+  	wrapper: document.getElementById('q1'),
+    question: '<span class="red">QUESTION 1</span><br>応募にあたり、応募規約に同意します',
+    answers: [{
+    	value: 'はい',
+    	text: 'はい',
+    }, {
+    	value: 'いいえ',
+    	text: 'いいえ'
+    }]
+  });
+  
+  setTimeout(function() {
+    appPages.toPage('termsPage');
+  }, 1000);
+  
+  /* event listeners */
+  /* enabled terms agree checkbox when scrolled tnc to bottom */
+  var enableAgreeCheckbox = false;
+  document.getElementById('tnc').addEventListener('scroll', function(event) {
+  	if (!enableAgreeCheckbox) {
+  		var element = event.target;
+	    if (element.scrollHeight - element.scrollTop < element.clientHeight + 50) {
+	      document.getElementById('agreeCheck').disabled = false;
+	      enableAgreeCheckbox = true;
+	    }
+  	}
+  });
+  
+  /* enable start survey button when terms agree checkbox is checked */
+  document.getElementById('agreeCheck').onchange = function() {
+    if (this.checked) {
+			document.getElementById('startSurvey').disabled = false;
+    }
+    else {
+    	document.getElementById('startSurvey').disabled = true;
+    }
+  }
 });
-
-export {
-  app
-}
-
