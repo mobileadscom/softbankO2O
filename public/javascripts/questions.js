@@ -29,12 +29,20 @@ class singleAnswerQuestion {
 		  else {
 	      this.input = document.createElement('input');
 	      this.input.setAttribute('type', 'text');
+	      this.input.setAttribute('maxlength', '50');
 	      this.input.disabled = true;
 	      answerBox.appendChild(this.input);
 	      answerBox.classList.add('input');
-	      this.input.onblur = () => {
+	      this.input.oninput = () => {
 	      	if (this.input.parentNode.classList.contains('selected')) {
-	      		this.selectedAnswer = 'その他: ' + this.input.value;
+	      		if (this.input.value) {
+	      			this.selectedAnswer = 'その他: ' + this.input.value;
+	      			this.nextBtn.disabled = false;
+	      		}
+	      		else {
+	      			this.nextBtn.disabled = true;
+	      		}
+	      		
 	      	}
 	      }
 		  }
@@ -47,6 +55,7 @@ class singleAnswerQuestion {
 	}
 
 	selectAnswer(target) {
+		var isOther = false;
 		if (!target.classList.contains('selected')) {
 			for (var a = 0; a < this.answers.length; a ++) {
 				this.answers[a].classList.remove('selected');
@@ -62,10 +71,21 @@ class singleAnswerQuestion {
 			else {
 				this.input.disabled = false;
 				this.input.focus();
+				isOther = true;
 			}
 
 			if (this.nextBtn) {
-				this.nextBtn.disabled = false;
+				if (!isOther) {
+					this.nextBtn.disabled = false;
+				}
+				else {
+					if (this.input.value) {
+						this.nextBtn.disabled = false;
+					}
+					else {
+						this.nextBtn.disabled = true;
+					}
+				}
 			}
 		}
 	}
@@ -100,10 +120,11 @@ class multipleAnswerQuestion {
 		  else {
 	      this.input = document.createElement('input');
 	      this.input.setAttribute('type', 'text');
+	      this.input.setAttribute('maxlength', '50');
 	      this.input.disabled = true;
 	      answerBox.appendChild(this.input);
 	      answerBox.classList.add('input');
-	      this.input.onblur = () => {
+	      this.input.oninput = () => {
 			    this.compileAnswer();
 	      }
 		  }
