@@ -1,6 +1,7 @@
 import miniPages from './miniPages';
 import {singleAnswerQuestion, multipleAnswerQuestion, dropdownQuestion} from './questions';
 import miniSelect from './miniSelect';
+import winningLogic from './winningLogic'
 import '../stylesheets/miniSelect.css';
 import '../stylesheets/style.css';
 import '../stylesheets/miniCheckbox.css';
@@ -243,13 +244,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }, {
     	text: 'その他',
       type: 'text'
-    }]
+    }],
+    nextBtn: document.getElementById('toResult')
   });
-  
-  miniSelect.init('miniSelect');
-  setTimeout(function() {
-    appPages.toPage('termsPage');
-  }, 1000);
   
   /* event listeners */
   /* enabled terms agree checkbox when scrolled tnc to bottom */
@@ -273,4 +270,13 @@ document.addEventListener('DOMContentLoaded', function() {
     	document.getElementById('startSurvey').disabled = true;
     }
   }
+
+  document.getElementById('toResult').addEventListener('click', function() {
+    console.log(winningLogic.process(window.q));
+  })
+
+  miniSelect.init('miniSelect');
+  setTimeout(function() {
+    appPages.toPage('termsPage');
+  }, 1000);
 });
