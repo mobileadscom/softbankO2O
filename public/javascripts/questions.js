@@ -18,15 +18,29 @@ class singleAnswerQuestion {
     this.wrapper.appendChild(this.answerWrapper);
     for (var a = 0; a < options.answers.length; a++) {
       var answerBox = document.createElement('div');
-      answerBox.dataset.value = options.answers[a].value;
 		  answerBox.innerHTML = options.answers[a].text;
 		  answerBox.classList.add('answer');
-		  this.answerWrapper.appendChild(answerBox);
 		  var rad = document.createElement('div');
-		  rad.classList.add('rad');
-		  answerBox.appendChild(rad);
+			rad.classList.add('rad');
+			answerBox.appendChild(rad);
+		  if (!options.answers[a].type) {
+		  	answerBox.dataset.value = options.answers[a].value;
+		  }
+		  else {
+	      this.input = document.createElement('input');
+	      this.input.setAttribute('type', 'text');
+	      this.input.disabled = true;
+	      answerBox.appendChild(this.input);
+	      answerBox.classList.add('input');
+	      this.input.onblur = () => {
+	      	if (this.input.parentNode.classList.contains('selected')) {
+	      		this.selectedAnswer = 'その他: ' + this.input.value;
+	      	}
+	      }
+		  }
+		  this.answerWrapper.appendChild(answerBox);
 		  answerBox.addEventListener('click', (e) => {
-			  this.selectAnswer(e.target);
+				this.selectAnswer(e.target);
 		  });
       this.answers.push(answerBox);
     }
@@ -39,7 +53,16 @@ class singleAnswerQuestion {
 			}
 			
 			target.classList.add('selected');
-			this.selectedAnswer = target.dataset.value;
+			if (!target.classList.contains('input')) {
+				this.selectedAnswer = target.dataset.value;
+				if (this.input) {
+					this.input.disabled = true;
+				}
+			}
+			else {
+				this.input.disabled = false;
+				this.input.focus();
+			}
 
 			if (this.nextBtn) {
 				this.nextBtn.disabled = false;
@@ -51,7 +74,6 @@ class singleAnswerQuestion {
 class multipleAnswerQuestion {
 	constructor(options) {
 		this.wrapper = options.wrapper;
-		this.selectedAnswerArr = [];
 		this.selectedAnswer = "";
 		this.answers = [];
 		if (options.nextBtn) {
@@ -67,13 +89,25 @@ class multipleAnswerQuestion {
     this.wrapper.appendChild(this.answerWrapper);
     for (var a = 0; a < options.answers.length; a++) {
       var answerBox = document.createElement('div');
-      answerBox.dataset.value = options.answers[a].value;
 		  answerBox.innerHTML = options.answers[a].text;
 		  answerBox.classList.add('m-answer');
-		  this.answerWrapper.appendChild(answerBox);
 		  var checkmark = document.createElement('div');
 		  checkmark.classList.add('checkmark');
 		  answerBox.appendChild(checkmark);
+		  if (!options.answers[a].type) {
+		  	answerBox.dataset.value = options.answers[a].value;
+		  }
+		  else {
+	      this.input = document.createElement('input');
+	      this.input.setAttribute('type', 'text');
+	      this.input.disabled = true;
+	      answerBox.appendChild(this.input);
+	      answerBox.classList.add('input');
+	      this.input.onblur = () => {
+			    this.compileAnswer();
+	      }
+		  }
+		  this.answerWrapper.appendChild(answerBox);
 		  answerBox.addEventListener('click', (e) => {
 			  this.selectAnswer(e.target);
 		  });
@@ -85,20 +119,36 @@ class multipleAnswerQuestion {
 		var val = target.dataset.value;
 		if (target.classList.contains('selected')) {
 			target.classList.remove('selected');
-			if (this.selectedAnswerArr.indexOf(val) > -1) {
-			  this.selectedAnswerArr.splice(this.selectedAnswerArr.indexOf(val), 1);
-			}
 		}
 		else {
 			target.classList.add('selected');
-			if (this.selectedAnswerArr.indexOf(val) < 0) {
-				this.selectedAnswerArr.push(val);
+			if (target.classList.contains('input')) {
+				this.input.disabled = false;
+				this.input.focus();
 			}
 		}
 
-		this.selectedAnswer = JSON.stringify(this.selectedAnswerArr);
+		this.compileAnswer();
+	}
+
+	compileAnswer() {
+		var chosenAnswers = [];
+		for (var a = 0; a < this.answers.length; a++) {
+			if (this.answers[a].classList.contains('selected')) {
+				if (!this.answers[a].classList.contains('input')) {
+					chosenAnswers.push(this.answers[a].dataset.value);
+				}
+				else {
+					if (this.input.value) {
+						chosenAnswers.push('その他: ' + this.input.value);
+					}
+				}
+			}
+		}
+	  
+	  this.selectedAnswer = JSON.stringify(chosenAnswers);
 		if (this.nextBtn) {
-			if (this.selectedAnswerArr.length > 0) {
+			if (chosenAnswers.length > 0) {
 			  this.nextBtn.disabled = false;
 		  }
 		  else {

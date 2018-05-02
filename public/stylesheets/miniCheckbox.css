@@ -36,6 +36,7 @@
     transition: all 0.3s;
     border-radius: 6px;
     border: 1px solid #E54C3C;
+    pointer-events: none;
 }
 
 .miniCheckbox input:disabled ~ .checkmark {

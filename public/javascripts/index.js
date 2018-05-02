@@ -215,6 +215,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }, {
     	value: 'サークルKサンクス',
     	text: 'サークルKサンクス'
+    }, {
+    	text: 'その他',
+      type: 'text'
     }],
     nextBtn: document.getElementById('toQ8')
   });
@@ -237,6 +240,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }, {
     	value: 'サークルKサンクス',
     	text: 'サークルKサンクス'
+    }, {
+    	text: 'その他',
+      type: 'text'
     }]
   });
   
