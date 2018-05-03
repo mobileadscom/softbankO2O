@@ -6,7 +6,9 @@ var domain = 'http://192.168.99.100';
 var coupon = {
 	count: {
 		A: 0,
-		B: 0
+		B: 0,
+		C: 0,
+		D: 0
 	},
 	get: function() {
 		var _this = this;
