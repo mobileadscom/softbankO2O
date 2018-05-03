@@ -89,6 +89,23 @@ class singleAnswerQuestion {
 			}
 		}
 	}
+
+	setAnswer(val) {
+		if (val.indexOf('その他:') < 0) {
+			for (var a = 0; a < this.answers.length; a++) {
+				if (this.answers[a].dataset.value == val) {
+					this.selectAnswer(this.answers[a]);
+				}
+			}
+		}
+		else {
+			this.selectAnswer(this.input.parentNode);
+			this.input.value = val.split(': ')[1];
+			if (this.nextBtn) {
+				this.nextBtn.disabled = false;
+			}
+		}
+	}
 }
 
 class multipleAnswerQuestion {
@@ -177,6 +194,26 @@ class multipleAnswerQuestion {
 		  }
 		}
 	}
+
+	setAnswer(val) {
+		var loadedAnswers = JSON.parse(val);
+		for (var l = 0; l < loadedAnswers.length; l++) {
+			if (loadedAnswers[l].indexOf('その他:') < 0) {
+				for (var a = 0; a < this.answers.length; a++) {
+					if (this.answers[a].dataset.value == loadedAnswers[l]) {
+						this.selectAnswer(this.answers[a]);
+					}
+				}
+			}
+			else {
+				this.selectAnswer(this.input.parentNode);
+				this.input.value = loadedAnswers[l].split(': ')[1];
+				if (this.nextBtn) {
+					this.nextBtn.disabled = false;
+				}
+			}
+		}
+	}
 }
 
 class dropdownQuestion {
@@ -198,25 +235,31 @@ class dropdownQuestion {
 	  var selectContainer = document.createElement('div');
 	  selectContainer.classList.add('miniSelect');
 	  this.answerWrapper.appendChild(selectContainer);
-	  var select = document.createElement('select');
-	  selectContainer.appendChild(select);
+	  this.select = document.createElement('select');
+	  selectContainer.appendChild(this.select);
 	  var dumOpt = document.createElement('option');
 	  dumOpt.setAttribute('value', '0');
 	  dumOpt.innerHTML = '選択してください';
 	  dumOpt.selected = true;
-	  select.appendChild(dumOpt);
+	  this.select.appendChild(dumOpt);
 	  for (var a = 0; a < options.answers.length; a++) {
       var answerBox = document.createElement('option');
       answerBox.setAttribute('value', options.answers[a].value);
 		  answerBox.innerHTML = options.answers[a].text;
-		  select.appendChild(answerBox);
+		  this.select.appendChild(answerBox);
 		}
-	  select.onchange = (e) => {
-	    this.selectedAnswer = select.value;
+	  this.select.onchange = (e) => {
+	    this.selectedAnswer = this.select.value;
 	    if (this.nextBtn) {
 				this.nextBtn.disabled = false;
 			}
 	  }
+	}
+
+	setAnswer(val) {
+		this.select.nextElementSibling.textContent = val;
+		this.select.value = val;
+		this.select.onchange();
 	}
 }
 

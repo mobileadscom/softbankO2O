@@ -320,7 +320,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				/*apply answer to answered question */
 				var userAnswers = JSON.parse(user.info.Answers);
-				console.log(userAnswers);
+				for (var w = 1; w < window.q.length; w++) {
+					if (userAnswers[w]) {
+					  window.q[w].setAnswer(userAnswers[w]);
+					}
+				}
     	}
     }).catch(function(error) {
 			console.log(error);
