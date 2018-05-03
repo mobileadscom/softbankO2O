@@ -257,7 +257,9 @@ class dropdownQuestion {
 	}
 
 	setAnswer(val) {
-		this.select.nextElementSibling.textContent = val;
+		if (this.select.nextElementSibling.classList.contains('miniSelect-selected')) {
+			this.select.nextElementSibling.textContent = val;
+		}
 		this.select.value = val;
 		this.select.onchange();
 	}

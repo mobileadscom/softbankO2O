@@ -298,10 +298,19 @@ document.addEventListener('DOMContentLoaded', function() {
   	}
   });
   /* ==== Event Listeners End ==== */
+  
+  /* apply mini select to <select> */
+  miniSelect.init('miniSelect');
+
+  /* get coupons */
+  coupon.get();
 
   /* User Info */
   if (!params.userId) {
 	  user.isWanderer = true;
+    setTimeout(function() {
+	    appPages.toPage('termsPage');
+	  }, 1000);
   }
   else {
 		user.isWanderer = false;
@@ -311,8 +320,10 @@ document.addEventListener('DOMContentLoaded', function() {
     	if (response.data.status == false) { // user is not registered
     		user.register(params.userId).then(function(res) { // auto register user
 					console.log(res);
+				  appPages.toPage('termsPage');
     		}).catch(function(err) {
     			console.log(err);
+    			appPages.toPage('termsPage');
     		});
     	}
     	else { // user is registered
@@ -325,9 +336,11 @@ document.addEventListener('DOMContentLoaded', function() {
 					  window.q[w].setAnswer(userAnswers[w]);
 					}
 				}
+				appPages.toPage('page' + (user.info.noQuestionAnswered + 1).toString());
     	}
     }).catch(function(error) {
 			console.log(error);
+			appPages.toPage('termsPage');
     });
 
     /* Auto save answer for every questions*/
@@ -343,12 +356,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	  	})
 	  }
 	}
-
-  miniSelect.init('miniSelect');
-  coupon.get();
-  setTimeout(function() {
-    appPages.toPage('termsPage');
-  }, 1000);
 });
 
 export {
