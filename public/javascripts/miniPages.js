@@ -19,8 +19,10 @@ class miniPages {
 		}
 
 		for (var n = 0; n < pageBtns.length; n++) {
-			pageBtns[n].addEventListener('click', (e) => {
-	      this.toPage(e.target.dataset.target);
+			pageBtns[n].addEventListener('click', (e) => { 
+				if (!this.switching) {
+					this.toPage(e.target.dataset.target);
+				}
 			});
 		}
 		this.currentPage.style.display = 'block';

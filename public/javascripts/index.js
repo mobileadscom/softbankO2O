@@ -1,11 +1,12 @@
 import miniPages from './miniPages';
 import {singleAnswerQuestion, multipleAnswerQuestion, dropdownQuestion} from './questions';
 import miniSelect from './miniSelect';
-import winningLogic from './winningLogic'
+import winningLogic from './winningLogic';
+import coupon from './coupon';
+import user from './user';
 import '../stylesheets/miniSelect.css';
 import '../stylesheets/style.css';
 import '../stylesheets/miniCheckbox.css';
-
 
 var getParams = function() {
   var query_string = {};
@@ -28,6 +29,8 @@ var getParams = function() {
   return query_string;
 }
 
+window.params = getParams();
+
 document.addEventListener('DOMContentLoaded', function() {
 	/* init pagination */
   window.appPages = new miniPages({
@@ -37,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
   	pageButtonClass: 'pageBtn'
   });
 
-  /* set questions */
+  /* ==== Set Questions ==== */
   window.q = [];
   window.q[1] = new singleAnswerQuestion({
   	wrapper: document.getElementById('q1'),
@@ -247,8 +250,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }],
     nextBtn: document.getElementById('toResult')
   });
+  /* ==== Questions End ==== */
   
-  /* event listeners */
+  /* ==== Event Listeners ==== */
   /* enabled terms agree checkbox when scrolled tnc to bottom */
   var enableAgreeCheckbox = false;
   document.getElementById('tnc').addEventListener('scroll', function(event) {
@@ -270,13 +274,79 @@ document.addEventListener('DOMContentLoaded', function() {
     	document.getElementById('startSurvey').disabled = true;
     }
   }
-
+  
+  /* Finished Answering Questions, process result */
+  var processed = false;
   document.getElementById('toResult').addEventListener('click', function() {
-    console.log(winningLogic.process(window.q));
-  })
+  	if (!processed) {
+  		processed = true;
+  		var resultProperties = winningLogic.process(window.q);
+  		console.log(resultProperties);
+  		var state = resultProperties.result;
+  		var group = resultProperties.winPrio == 2 ? 'A' : 'B';
+  		if (state == 'win') {
+  			document.getElementById('resultTitle').innerHTML = "おめでとうございます！";
+  			document.getElementById('resultDescription').innerHTML = "カルビー じゃがりこ サラダが当たりました。";
+  			document.getElementById('resultInstruction').innerHTML = "クーポンを受け取って、セブンーイレブンで引き換えてください";
+  		}
+  		else {
+  			document.getElementById('resultTitle').innerHTML = "残念！<br>ハズレです";
+  			document.getElementById('resultImage').style.display = 'none';
+  			var couponLink = document.getElementById('couponLink');
+  			couponLink.parentNode.removeChild(couponLink);
+  		}
+  	}
+  });
+  /* ==== Event Listeners End ==== */
+
+  /* User Info */
+  if (!params.userId) {
+	  user.isWanderer = true;
+  }
+  else {
+		user.isWanderer = false;
+		/* check if user is registered, if no, then register user, if yes, continue on where the user left off */
+		user.get(params.userId).then(function(response) {
+			console.log(response);
+    	if (response.data.status == false) { // user is not registered
+    		user.register(params.userId).then(function(res) { // auto register user
+					console.log(res);
+    		}).catch(function(err) {
+    			console.log(err);
+    		});
+    	}
+    	else { // user is registered
+				user.info = response.data.user;
+
+				/*apply answer to answered question */
+				var userAnswers = JSON.parse(user.info.Answers);
+				console.log(userAnswers);
+    	}
+    }).catch(function(error) {
+			console.log(error);
+    });
+
+    /* Auto save answer for every questions*/
+	  var saveBtns = document.getElementsByClassName('saveQuestion');
+	  for (var s = 0; s < saveBtns.length; s++ ) {
+	  	saveBtns[s].addEventListener('click', function() {
+	  		var qNo = parseInt(this.dataset.question);
+			  user.saveAnswer(params.userId, qNo, window.q[qNo].selectedAnswer).then(function(response) {
+			  	console.log(response);
+			  }).catch(function(error) {
+			  	console.log(error);
+			  });
+	  	})
+	  }
+	}
 
   miniSelect.init('miniSelect');
+  coupon.get();
   setTimeout(function() {
     appPages.toPage('termsPage');
   }, 1000);
 });
+
+export {
+	user
+}

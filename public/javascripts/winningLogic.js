@@ -2,7 +2,7 @@ var winningLogic = {
 	winLogic: {
 		'6': {
 			value: ['ほぼ毎日', '週４〜５回', '週２〜３回'],
-			priority: 2
+			priority: 3
 		},
 		'8': {
 			value: 'セブン-イレブン',
@@ -16,7 +16,7 @@ var winningLogic = {
 		},
 		'7': {
 			value: 'セブン-イレブン',
-			priority: 3
+			priority: 2
 		}
 	},
 	process: function(questions) {
@@ -53,8 +53,13 @@ var winningLogic = {
     		}
     	}
     }
-    console.log(winPrio, losePrio);
-    return winPrio < losePrio ? 'win' : 'lose'; 
+
+    var result = winPrio < losePrio ? 'win' : 'lose';
+    return {
+      result: result,
+      winPrio: winPrio,
+      losePrio: losePrio
+    }
 	}
 }
 

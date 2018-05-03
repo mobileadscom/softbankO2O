@@ -34,8 +34,8 @@
     width: 25px;
     background-color: white;
     transition: all 0.3s;
-    border-radius: 6px;
-    border: 1px solid #E54C3C;
+    /*border-radius: 6px;*/
+    border: 1px solid #536D79;
     pointer-events: none;
 }
 
@@ -50,6 +50,10 @@
     transition: all 0.3s;
 }
 
+.miniCheckbox input:checked ~ .checkmark {
+    background-color: #536D79;
+}
+
 /* Show the checkmark when checked */
 .miniCheckbox input:checked ~ .checkmark:after {
     display: block;
@@ -61,7 +65,7 @@
     top: 5px;
     width: 5px;
     height: 10px;
-    border: solid #E54C3C;
+    border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);

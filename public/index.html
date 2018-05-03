@@ -77,65 +77,103 @@
 	      <label for="agreeCheck">同意する</label>
 	      <span class="checkmark"></span>
 	    </div>
-	    <button id="startSurvey" class="pageBtn" data-target="page1" disabled>NEXT <span class="right"></button>
+	    <button id="startSurvey" class="pageBtn next-btn" data-target="page1" disabled>NEXT <span class="right"></button>
 	  </div>
 	  <div id="page1" class="page">
 	  	<div id="q1" class="pageQuestion">
 	  	</div>
-	  	<button id="toQ2" class="pageBtn" data-target="page2">NEXT <span class="right"></button>
+	  	<div class="pagination-wrapper">
+	      <div class="question-no">
+	        1/8
+	    	</div>
+	      <button id="toQ2" class="pageBtn next-btn saveQuestion" data-question="1" data-target="page2">NEXT <span class="right"></button>
+	  	</div>
 	  </div>
 	  <div id="page2" class="page">
 	  	<div id="q2" class="pageQuestion">
 	  	</div>
-	  	<button id="toQ1" class="pageBtn" data-target="page1">Back <span class="left"></button>
-	  	<button id="toQ3" class="pageBtn" data-target="page3">NEXT <span class="right"></button>
+	  	<div class="pagination-wrapper">
+	  		<button id="toQ1" class="pageBtn back-btn" data-target="page1">BACK <span class="left"></button>
+	      <div class="question-no">
+	        2/8
+	    	</div>
+	      <button id="toQ3" class="pageBtn next-btn saveQuestion" data-question="2" data-target="page3">NEXT <span class="right"></button>
+	  	</div>
 	  </div>
 	  <div id="page3" class="page">
 	  	<div id="q3" class="pageQuestion">
 	  	</div>
-	  	<button id="toQ2" class="pageBtn" data-target="page2">Back <span class="left"></button>
-	  	<button id="toQ4" class="pageBtn" data-target="page4">NEXT <span class="right"></button>
+	  	<div class="pagination-wrapper">
+	  		<button id="toQ2" class="pageBtn back-btn" data-target="page2">BACK <span class="left"></button>
+	      <div class="question-no">
+	        3/8
+	    	</div>
+	      <button id="toQ4" class="pageBtn next-btn saveQuestion" data-question="3" data-target="page4">NEXT <span class="right"></button>
+	  	</div>
 	  </div>
 	  <div id="page4" class="page">
 	  	<div id="q4" class="pageQuestion">
 	  	</div>
-	  	<button id="toQ3" class="pageBtn" data-target="page3">Back <span class="left"></button>
-	  	<button id="toQ5" class="pageBtn" data-target="page5">NEXT <span class="right"></button>
+	  	<div class="pagination-wrapper">
+	  		<button id="toQ3" class="pageBtn back-btn" data-target="page3">BACK <span class="left"></button>
+	      <div class="question-no">
+	        4/8
+	    	</div>
+	      <button id="toQ5" class="pageBtn next-btn saveQuestion" data-question="4" data-target="page5">NEXT <span class="right"></button>
+	  	</div>
 	  </div>
 	  <div id="page5" class="page">
 	  	<div id="q5" class="pageQuestion">
 	  	</div>
-	  	<button id="toQ4" class="pageBtn" data-target="page4">Back <span class="left"></button>
-	  	<button id="toQ6" class="pageBtn" data-target="page6">NEXT <span class="right"></button>
+	  	<div class="pagination-wrapper">
+	  		<button id="toQ4" class="pageBtn back-btn" data-target="page4">BACK <span class="left"></button>
+	      <div class="question-no">
+	        5/8
+	    	</div>
+	      <button id="toQ6" class="pageBtn next-btn saveQuestion" data-question="5" data-target="page6">NEXT <span class="right"></button>
+	  	</div>
 	  </div>
 	  <div id="page6" class="page">
 	  	<div id="q6" class="pageQuestion">
 	  	</div>
-	  	<button id="toQ5" class="pageBtn" data-target="page5">Back <span class="left"></button>
-	  	<button id="toQ7" class="pageBtn" data-target="page7">NEXT <span class="right"></button>
+	  	<div class="pagination-wrapper">
+	  		<button id="toQ5" class="pageBtn back-btn" data-target="page5">BACK <span class="left"></button>
+	      <div class="question-no">
+	        6/8
+	    	</div>
+		  	<button id="toQ7" class="pageBtn next-btn saveQuestion" data-question="6" data-target="page7">NEXT <span class="right"></button>
+	  	</div>
 	  </div>
 	  <div id="page7" class="page">
 	  	<div id="q7" class="pageQuestion">
 	  	</div>
-	  	<button id="toQ6" class="pageBtn" data-target="page6">Back <span class="left"></button>
-	  	<button id="toQ8" class="pageBtn" data-target="page8">NEXT <span class="right"></button>
+	  	<div class="pagination-wrapper">
+	  		<button id="toQ6" class="pageBtn back-btn" data-target="page6">BACK <span class="left"></button>
+	      <div class="question-no">
+	        7/8
+	    	</div>
+		  	<button id="toQ8" class="pageBtn next-btn saveQuestion" data-question="7" data-target="page8">NEXT <span class="right"></button>
+	  	</div>
 	  </div>
 	  <div id="page8" class="page">
 	  	<div id="q8" class="pageQuestion">
 	  	</div>
-	  	<button id="toQ7" class="pageBtn" data-target="page7">Back <span class="left"></button>
-  		<button id="toResult" class="pageBtn" data-target="resultPage">NEXT <span class="right"></button>
+	  	<div class="pagination-wrapper">
+	  		<button id="toQ7" class="pageBtn back-btn" data-target="page7">BACK <span class="left"></button>
+	      <div class="question-no">
+	        8/8
+	    	</div>
+		  	<button id="toResult" class="pageBtn next-btn saveQuestion" data-question="8" data-target="resultPage">NEXT <span class="right"></button>
+	  	</div>
 	  </div>
 	  <div id="resultPage" class="page">
-		  <div class="resultTitle">
+		  <div id="resultTitle">
 		  	Result Title
 		  </div>
-		  <div class="resultMessage">
-		  	Result Messsage
+		  <div id="resultDescription">
 		  </div>
-		  <img class="resultImage" />
-		  <div class="resultMessage">
-		  	
+		  <img id="resultImage" src="images/calbee.png" />
+		  <div id="resultInstruction">
 		  </div>
 		  <a id="couponLink"><button>クーポンを受け取る</button></a>
 	  </div>

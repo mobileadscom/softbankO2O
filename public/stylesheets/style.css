@@ -7,6 +7,7 @@ body {
   text-align: center;
   height: 100%;
   overflow-x: hidden;
+  font-family: Arial;
 }
 
 div {
@@ -35,6 +36,20 @@ div {
   #page-wrapper {
     height: calc(100% - 65px);
   }
+
+  #resultImage {
+    width: 150px;
+  }
+
+  #resultTitle {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+
+
+  #resultDescription, #resultInstruction {
+    font-size: 16px;
+  }
 }
 
 @media( min-width: 480px) {
@@ -53,6 +68,19 @@ div {
   .terms .points .points-title:before {
     height: 18px;
     width: 18px;
+  }
+
+  #resultImage {
+    width: 220px;
+  }
+
+  #resultTitle {
+    font-size: 30px;
+    margin-top: 30px;
+  }
+
+  #resultDescription, #resultInstruction {
+    font-size: 20px;
   }
 }
 
@@ -102,6 +130,7 @@ div {
 
 .msg-wrapper {
   font-weight: 600;
+  margin-top: 15px;
 }
 
 .terms {
@@ -145,7 +174,8 @@ div {
   text-align: center;
   width: 100%;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-weight: 600;
 }
 
@@ -172,4 +202,128 @@ div {
   max-width: 600px;
   margin: auto;
   font-size: 16px;
+}
+
+.page .pagination-wrapper {
+  margin-bottom: 15px;
+}
+
+.page .pagination-wrapper button, #startSurvey, #couponLink button {
+  border-radius: 3px;
+  font-size: 1.25em;
+  border: 1px solid #1983FF;
+  background-color: #1983FF;
+  color: white;
+  width: 100px;
+  height: 34px;
+  padding: 1px 8px;
+  transition: all 0.3s;
+}
+
+#couponLink button {
+  width: 250px;
+  text-decoration: none;
+}
+
+.page .question-no {
+  display: inline-block;
+  margin: 0px 10px;
+  color: #1983FF;
+  font-weight: 600;
+}
+
+button.back-btn {
+  text-align: right;
+  position: relative;
+}
+
+button .left {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: -2px;
+  top: 4px;
+  pointer-events: none;
+}
+
+button .left:after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 23px;
+  border-right: 14px solid white;
+  border-bottom: 10px solid transparent;
+  border-top: 10px solid transparent;
+  box-sizing: border-box;
+  border-radius: 4px;
+  transition: all 0.3s;
+  pointer-events: none;
+}
+
+button:hover .left:after {
+  border-right: 14px solid #ccc;
+}
+
+button.next-btn, #startSurvey {
+  text-align: left;
+  position: relative;
+}
+
+button .right {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  right: 12px;
+  top: 4px;
+  pointer-events: none;
+}
+
+button .right:after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 23px;
+  border-left: 14px solid white;
+  border-bottom: 10px solid transparent;
+  border-top: 10px solid transparent;
+  box-sizing: border-box;
+  border-radius: 4px;
+  transition: all 0.3s;
+  pointer-events: none;
+}
+
+button:hover .right:after {
+  border-left: 14px solid #ccc;
+}
+
+.page .pagination-wrapper button:hover, #startSurvey:hover, #couponLink button:hover {
+  /*color: white;
+  background-color: #E54C3C;*/
+  color: #ccc;
+  cursor: pointer;
+}
+
+.page .pagination-wrapper button[disabled], #startSurvey[disabled] {
+  opacity: 0.3;
+}
+
+#resultImage {
+  display: block;
+  margin: 10px auto 0px;
+}
+
+#resultTitle {
+  font-weight: 600;
+  padding: 0px 15px;
+}
+
+#resultDescription, #resultInstruction {
+  margin-top: 10px;
+  padding: 0px 15px;
+}
+
+#couponLink {
+  display: block;
+  text-decoration: none;
+  margin-top: 20px;
 }

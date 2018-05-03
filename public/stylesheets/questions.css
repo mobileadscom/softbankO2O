@@ -47,8 +47,12 @@
   transition: all 0.3s;
 }
 
+.answer:nth-child(odd), .m-answer:nth-child(odd) {
+  background-color: #eee;
+}
+
 .answer:nth-child(even), .m-answer:nth-child(even) {
-	background-color: #dddddd;
+	background-color: #ddd;
 }
 
 .answer .rad {
@@ -56,7 +60,7 @@
 	transition: all 0.3s;
 	width: 12px;
 	height: 12px;
-	background-color: #E54C3C;
+	background-color: #536D79;
 	position: absolute;
 	left: 9px;
 	top: 50%;
@@ -69,7 +73,7 @@
   opacity: 0;
   width: 8px;
   height: 14px;
-  border: solid #E54C3C;
+  border: solid white;
   border-width: 0 3px 3px 0;
   -webkit-transform: translateY(-50%) rotate(45deg);
   -ms-transform: translateY(-50%) rotate(45deg);
@@ -82,8 +86,13 @@
   pointer-events: none;
 }
 
-.answer.selected:before, .m-answer.selected:before {
-	border-color: #E54C3C;
+.answer.selected:before {
+	border-color: #536D79;
+}
+
+.m-answer.selected:before {
+  border-color: #536D79;
+  background-color: #536D79;
 }
 
 .answer.selected .rad, .m-answer.selected .checkmark {

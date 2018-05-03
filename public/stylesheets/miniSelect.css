@@ -8,8 +8,9 @@
   display: none; /*hide original SELECT element:*/
 }
 .miniSelect-selected {
-  background-color: #E54C3C;
+  background-color: #536D79;
   color: white;
+  font-weight: 600;
 }
 /*style the arrow inside the select element:*/
 .miniSelect-selected:after {
@@ -39,7 +40,7 @@
 }
 
 .miniSelect-items div {
-  color: #E54C3C;
+  color: #444;
 }
 
 /*style items (options):*/
@@ -52,7 +53,7 @@
   z-index: 99;
   max-height: 350px;
   overflow-y: auto;
-  border: 1px solid #E54C3C;
+  border: 1px solid #536D79;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
