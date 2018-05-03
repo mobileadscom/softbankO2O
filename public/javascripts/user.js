@@ -26,6 +26,19 @@ var user = {
     ansForm.append('questionNo', questionNo);
     ansForm.append('answer', answer)
     return axios.post(domain + '/api/coupon/softbank/user_answer_save', ansForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+	},
+	win: function(userId, group) {
+		var markForm = new FormData();
+    markForm.append('id', userId);
+    markForm.append('state', 'win');
+    markForm.append('couponGroup', group);
+    return axios.post(domain + '/api/coupon/softbank/mark_user', markForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+	},
+	lose: function(userId) {
+		var markForm = new FormData();
+    markForm.append('id', userId);
+    markForm.append('state', 'lose');
+    return axios.post(domain + '/api/coupon/softbank/mark_user', markForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 	}
 };
 

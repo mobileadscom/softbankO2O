@@ -32,17 +32,29 @@ var app = {
 		  } 
 		  return query_string;
 	},
-	initResult(state) {
+	initResult(state, couponLink) {
 		if (state == 'win') {
 			document.getElementById('resultTitle').innerHTML = "おめでとうございます！";
 			document.getElementById('resultDescription').innerHTML = "カルビー じゃがりこ サラダが当たりました。";
-			document.getElementById('resultInstruction').innerHTML = "クーポンを受け取って、セブンーイレブンで引き換えてください";
+			if (user.isWanderer) {
+				document.getElementById('couponLink').style.display = 'none';
+				document.getElementById('resultInstruction').style.display = 'none;'
+			}
+			else {
+				document.getElementById('resultInstruction').innerHTML = "クーポンを受け取って、セブンーイレブンで引き換えてください";
+			}
+
+			if (couponLink) {
+				document.getElementById('couponLoader').style.display = 'none';
+				document.getElementById('couponLink').href = couponLink;
+				document.getElementById('couponLink').setAttribute('target', '_blank');
+			  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
+			}
 		}
 		else {
 			document.getElementById('resultTitle').innerHTML = "残念！<br>ハズレです";
 			document.getElementById('resultImage').style.display = 'none';
-			var couponLink = document.getElementById('couponLink');
-			couponLink.parentNode.removeChild(couponLink);
+			document.getElementById('couponLink').style.display = 'none';
 		}
 	},
 	events: function() {
@@ -77,8 +89,26 @@ var app = {
 	  		var resultProperties = winningLogic.process(this.q);
 	  		console.log(resultProperties);
 	  		var state = resultProperties.result;
-	  		var group = resultProperties.winPrio == 2 ? 'A' : 'B';
+	  		var group = resultProperties.winPrio == 3 ? 'A' : 'B';
 	  		this.initResult(state);
+	  		if (state == 'win') {
+	  			user.win(user.info.id, group).then((response) => {
+						console.log(response);
+						document.getElementById('couponLoader').style.display = 'none';
+						document.getElementById('couponLink').href = response.data.couponLink;
+						document.getElementById('couponLink').setAttribute('target', '_blank');
+					  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
+	  			}).catch((error) => {
+	  				console.log(error);
+	  			})
+	  		}
+	  		else if (state == 'lose') {
+	  			user.lose(user.info.id).then((response) => {
+	  				console.log(response);
+	  			}).catch((error) => {
+	  				console.log(error);
+	  			})
+	  		}
 	  	}
 	  });
 	  /* ==== Event Listeners End ==== */
@@ -328,6 +358,7 @@ var app = {
 	    	if (response.data.status == false) { // user is not registered
 	    		user.register(this.params.userId).then((res) => { // auto register user
 						console.log(res);
+						user.info.id = this.params.userId;
 					  this.pages.toPage('termsPage');
 	    		}).catch((err) => {
 	    			console.log(err);
@@ -344,7 +375,22 @@ var app = {
 						  this.q[w].setAnswer(userAnswers[w]);
 						}
 					}
-					this.pages.toPage('page' + (user.info.noQuestionAnswered + 1).toString());
+					if (user.info.state == 'win') {
+						this.initResult('win', user.info.couponLink);
+						this.pages.toPage('resultPage');
+					}
+					else if (user.info.state == 'lose') {
+						this.initResult('lose');
+						this.pages.toPage('resultPage');
+					}
+					else {
+						if (user.info.noQuestionAnswered > 0 && user.info.noQuestionAnswered < 8) {
+							this.pages.toPage('page' + (user.info.noQuestionAnswered + 1).toString());
+						}
+						else {
+							this.pages.toPage('termsPage');
+						}
+					}
 	    	}
 	    }).catch((error) => {
 				console.log(error);
