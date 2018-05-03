@@ -91,23 +91,25 @@ var app = {
 	  		var state = resultProperties.result;
 	  		var group = resultProperties.winPrio == 3 ? 'A' : 'B';
 	  		this.initResult(state);
-	  		if (state == 'win') {
-	  			user.win(user.info.id, group).then((response) => {
-						console.log(response);
-						document.getElementById('couponLoader').style.display = 'none';
-						document.getElementById('couponLink').href = response.data.couponLink;
-						document.getElementById('couponLink').setAttribute('target', '_blank');
-					  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
-	  			}).catch((error) => {
-	  				console.log(error);
-	  			})
-	  		}
-	  		else if (state == 'lose') {
-	  			user.lose(user.info.id).then((response) => {
-	  				console.log(response);
-	  			}).catch((error) => {
-	  				console.log(error);
-	  			})
+	  		if (!user.isWanderer) {
+	  			if (state == 'win') {
+		  			user.win(user.info.id, group).then((response) => {
+							console.log(response);
+							document.getElementById('couponLoader').style.display = 'none';
+							document.getElementById('couponLink').href = response.data.couponLink;
+							document.getElementById('couponLink').setAttribute('target', '_blank');
+						  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
+		  			}).catch((error) => {
+		  				console.log(error);
+		  			})
+		  		}
+		  		else if (state == 'lose') {
+		  			user.lose(user.info.id).then((response) => {
+		  				console.log(response);
+		  			}).catch((error) => {
+		  				console.log(error);
+		  			})
+		  		}
 	  		}
 	  	}
 	  });
