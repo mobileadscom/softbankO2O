@@ -1,8 +1,7 @@
 import miniPages from './miniPages';
 import {singleAnswerQuestion, multipleAnswerQuestion, dropdownQuestion} from './questions';
 import miniSelect from './miniSelect';
-import winningLogic from './winningLogic';
-import coupon from './coupon';
+import {winningLogic, coupon} from './winningLogic';
 import user from './user';
 import '../stylesheets/miniSelect.css';
 import '../stylesheets/style.css';
@@ -86,25 +85,12 @@ var app = {
 	  document.getElementById('toResult').addEventListener('click', () => {
 	  	if (!processed) {
 	  		processed = true;
-	  		var resultProperties = winningLogic.process(this.q);
+	  		var resultProperties = winningLogic.process(this.q, !user.isWanderer);
 	  		console.log(resultProperties);
 	  		var state = resultProperties.result;
-	  		var group = resultProperties.winPrio == 3 ? 'A' : 'B';
-	  		
+	  		var group = resultProperties.group;
+	
 	  		if (!user.isWanderer) {
-		  		if (group == 'A' && coupon.count['A'] < 1) {
-						if (coupon.count['B'] > 0 && this.q[8].selectedAnswer == 'セブン-イレブン') {
-							group = 'B';
-						}
-						else {
-							state = 'lose';
-						}
-		  		}
-
-		  		if (group == 'B' && coupon.count['B'] < 1) {
-						state = 'lose';
-		  		}
-
 	  			if (state == 'win') {
 		  			user.win(user.info.id, group).then((response) => {
 							console.log(response);

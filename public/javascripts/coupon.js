@@ -16,6 +16,8 @@ var coupon = {
       console.log(response);
       _this.count.A = response.data.A;
       _this.count.B = response.data.B;
+      _this.count.C = response.data.C;
+      _this.count.D = response.data.D;
     }).catch(function(error) {
       console.log(error);
     });
