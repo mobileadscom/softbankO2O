@@ -90,8 +90,21 @@ var app = {
 	  		console.log(resultProperties);
 	  		var state = resultProperties.result;
 	  		var group = resultProperties.winPrio == 3 ? 'A' : 'B';
-	  		this.initResult(state);
+	  		
 	  		if (!user.isWanderer) {
+		  		if (group == 'A' && coupon.count['A'] < 1) {
+						if (coupon.count['B'] > 0 && this.q[8].selectedAnswer == 'セブン-イレブン') {
+							group = 'B';
+						}
+						else {
+							state = 'lose';
+						}
+		  		}
+
+		  		if (group == 'B' && coupon.count['B'] < 1) {
+						state = 'lose';
+		  		}
+
 	  			if (state == 'win') {
 		  			user.win(user.info.id, group).then((response) => {
 							console.log(response);
@@ -101,16 +114,21 @@ var app = {
 						  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
 		  			}).catch((error) => {
 		  				console.log(error);
-		  			})
+		  			});
+		  			this.initResult('win');
 		  		}
-		  		else if (state == 'lose') {
+		  		else {
 		  			user.lose(user.info.id).then((response) => {
 		  				console.log(response);
 		  			}).catch((error) => {
 		  				console.log(error);
-		  			})
+		  			});
+		  			this.initResult('lose');
 		  		}
 	  		}
+	  		else {
+	  			this.initResult(state);
+	  		}	
 	  	}
 	  });
 	  /* ==== Event Listeners End ==== */

@@ -8,7 +8,7 @@ var user = {
 	info: {},
 	get: function(userId) {
 		var _this = this;
-    return axios.get(domain + '/api/coupon/softbank/user_info?', {
+    return axios.get(domain + '/api/coupon/softbank/user_info', {
       params: {
         id: userId
       }
