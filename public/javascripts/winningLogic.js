@@ -67,6 +67,7 @@ var winningLogic = {
           if (coupon.count[group] < 1) {
             if (group == 'A' || group == 'B' || group == 'C') {
               if (questions[8].selectedAnswer == 'セブン-イレブン' && coupon.count['D'] > 0) {
+                group = 'D';
                 result = 'win';
               }
               else {
