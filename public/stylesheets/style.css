@@ -133,6 +133,12 @@ div {
   margin-top: 15px;
 }
 
+.tnc-wrapper {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+}
+
 .terms {
   overflow-y: auto;
   overflow-x: hidden;
@@ -140,9 +146,7 @@ div {
   padding: 12px;
   text-align: left;
   position: relative;
-  width: 90%;
   margin: 15px auto 0px;
-  max-width: 1000px;
 }
 
 .terms ul {
@@ -192,8 +196,7 @@ div {
 }
 
 .agree-box {
-  margin: auto;
-  width: 90%;
+  width: 120px;
   margin-top: 20px;
 }
 
