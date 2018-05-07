@@ -23,21 +23,34 @@ div {
     height: 250px;
     font-size: 14px;
   }
+
+  .terms.sm {
+    height: 200px;
+  }
   
   .terms .instruction {
     font-size: 16px;
   }
 
-  .terms .points .points-title:before {
+  .terms .points-title:before {
     height: 15px;
     width: 15px;
+  }
+
+  .info {
+    font-size: 12px;
+  }
+
+  .info .points-title:before {
+    height: 12px;
+    width: 12px;
   }
   
   #page-wrapper {
     height: calc(100% - 65px);
   }
 
-  #resultImage {
+  #resultImage, .intro-image {
     width: 150px;
   }
 
@@ -61,16 +74,29 @@ div {
     font-size: 16px;
   }
 
+  .terms.sm {
+    height: 250px;
+  }
+
   .terms .instruction {
     font-size: 20px;
   }
 
-  .terms .points .points-title:before {
+  .terms .points-title:before {
     height: 18px;
     width: 18px;
   }
 
-  #resultImage {
+  .info {
+    font-size: 14px;
+  }
+
+  .info .points-title:before {
+    height: 16px;
+    width: 16px;
+  }
+
+  #resultImage, .intro-image {
     width: 220px;
   }
 
@@ -188,7 +214,7 @@ div {
   top: 100%;
 }
 
-.terms .points .points-title:before {
+.points-title:before {
   content: "";
   background-color: black;
   display: inline-block;
@@ -211,7 +237,7 @@ div {
   margin-bottom: 15px;
 }
 
-.page .pagination-wrapper button, #startSurvey, #couponLink button {
+.page .pagination-wrapper button, #toTerms, #startSurvey, #couponLink button {
   border-radius: 3px;
   font-size: 1.25em;
   border: 1px solid #1983FF;
@@ -267,7 +293,7 @@ button:hover .left:after {
   border-right: 14px solid #ccc;
 }
 
-button.next-btn, #startSurvey {
+button.next-btn, #startSurvey, #toTerms {
   text-align: left;
   position: relative;
 }
@@ -299,7 +325,7 @@ button:hover .right:after {
   border-left: 14px solid #ccc;
 }
 
-.page .pagination-wrapper button:hover, #startSurvey:hover, #couponLink button:hover {
+.page .pagination-wrapper button:hover, #toTerms:hover, #startSurvey:hover, #couponLink button:hover {
   /*color: white;
   background-color: #E54C3C;*/
   color: #ccc;
@@ -310,7 +336,7 @@ button:hover .right:after {
   opacity: 0.3;
 }
 
-#resultImage {
+#resultImage, .intro-image {
   display: block;
   margin: 10px auto 0px;
 }
@@ -355,4 +381,10 @@ button:hover .right:after {
 .loader.in-btn {
   display: inline-block;
   vertical-align: text-bottom;
+}
+
+.info {
+  text-align: left;
+  margin: auto;
+  margin-top: 20px;
 }

@@ -98,6 +98,7 @@ var app = {
 							document.getElementById('couponLink').href = response.data.couponLink;
 							document.getElementById('couponLink').setAttribute('target', '_blank');
 						  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
+						  // user.passResult(user.info.id, 1, response.data.couponLink);
 		  			}).catch((error) => {
 		  				console.log(error);
 		  			});
@@ -106,6 +107,7 @@ var app = {
 		  		else {
 		  			user.lose(user.info.id).then((response) => {
 		  				console.log(response);
+		  				// user.passResult(user.info.id, 0);
 		  			}).catch((error) => {
 		  				console.log(error);
 		  			});
@@ -353,7 +355,7 @@ var app = {
 	  if (!this.params.userId) {
 		  user.isWanderer = true;
 	    setTimeout(() => {
-		    this.pages.toPage('termsPage');
+		    this.pages.toPage('introPage');
 		  }, 1000);
 	  }
 	  else {
@@ -365,10 +367,11 @@ var app = {
 	    		user.register(this.params.userId).then((res) => { // auto register user
 						console.log(res);
 						user.info.id = this.params.userId;
-					  this.pages.toPage('termsPage');
+					  this.pages.toPage('introPage');
 	    		}).catch((err) => {
+	    			user.isWanderer = true;
 	    			console.log(err);
-	    			this.pages.toPage('termsPage');
+	    			this.pages.toPage('introPage');
 	    		});
 	    	}
 	    	else { // user is registered
@@ -394,13 +397,14 @@ var app = {
 							this.pages.toPage('page' + (user.info.noQuestionAnswered + 1).toString());
 						}
 						else {
-							this.pages.toPage('termsPage');
+							this.pages.toPage('introPage');
 						}
 					}
 	    	}
 	    }).catch((error) => {
+	    	user.isWanderer = true;
 				console.log(error);
-				this.pages.toPage('termsPage');
+				this.pages.toPage('introPage');
 	    });
 
 	    /* Auto save answer for every questions*/

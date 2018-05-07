@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// var domain = 'https://www.mobileads.com';
-var domain = 'http://192.168.99.100';
+var domain = 'https://www.mobileads.com';
+// var domain = 'http://192.168.99.100';
 
 var user = {
 	isWanderer: false,
@@ -39,6 +39,44 @@ var user = {
     markForm.append('id', userId);
     markForm.append('state', 'lose');
     return axios.post(domain + '/api/coupon/softbank/mark_user', markForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+	},
+	passResult: function(userId, flag, couponLink) { // flag: 1 = win, 0 = lose
+		var id = userId.substring(1);
+		var apiUrl = '';
+	  var acceptId = false;
+	  if (userId.charAt(0) == 't') {
+			apiUrl = 'https://ad.testee.co/receive/mobile360/';
+	    acceptId = true;
+	  }
+	  else if(userId.charAt(0) == 'p') {
+		 apiUrl = 'https://public.powl.jp/receive/mobile360/';
+	   acceptId = true;
+	  }
+
+	  if (acceptId) {
+			if (flag == 1) {
+				axios.post(apiUrl, {
+					userId: id,
+					flag: 1,
+					couponUrl: couponLink
+				}).then(function(response) {
+					console.log(response);
+				}).catch(function(error) {
+					console.log(error);
+				});
+			}
+			else if (flag == 0) {
+				axios.post(apiUrl, {
+					userId: id,
+					flag: 0
+				}).then(function(response) {
+					console.log(response);
+				}).catch(function(error) {
+					console.log(error);
+				})
+			}
+	  }
+
 	}
 };
 
