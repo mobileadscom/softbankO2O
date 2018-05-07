@@ -383,6 +383,11 @@ button:hover .right:after {
   vertical-align: text-bottom;
 }
 
+#toTerms {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .info {
   text-align: left;
   margin: auto;
