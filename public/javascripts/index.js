@@ -124,7 +124,7 @@ var app = {
 	},
 	setQuestions() {
 		/* ==== Set Questions ==== */
-	  this.q[1] = new singleAnswerQuestion({
+	/*  this.q[1] = new singleAnswerQuestion({
 	  	wrapper: document.getElementById('q1'),
 	    question: '<span class="red">QUESTION 1</span><br>応募にあたり、応募規約に同意します',
 	    answers: [{
@@ -135,11 +135,11 @@ var app = {
 	    	text: 'いいえ'
 	    }],
 	    nextBtn: document.getElementById('toQ2')
-	  });
+	  });*/
 
-	  this.q[2] = new singleAnswerQuestion({
+	  this.q[1] = new singleAnswerQuestion({
 	  	wrapper: document.getElementById('q2'),
-	  	question: '<span class="red">QUESTION 2</span><br>あなたの性別を教えてください',
+	  	question: '<span class="red">QUESTION 1</span><br>あなたの性別を教えてください',
 	  	answers: [{
 	    	value: '男',
 	    	text: '男',
@@ -150,9 +150,9 @@ var app = {
 	    nextBtn: document.getElementById('toQ3')
 	  });
 	  
-	  this.q[3] = new singleAnswerQuestion({
+	  this.q[2] = new singleAnswerQuestion({
 	  	wrapper: document.getElementById('q3'),
-	  	question: '<span class="red">QUESTION 3</span><br>あなたの年代を教えてください',
+	  	question: '<span class="red">QUESTION 2</span><br>あなたの年代を教えてください',
 	  	answers: [{
 	    	value: '19歳未満',
 	    	text: '19歳未満',
@@ -184,9 +184,9 @@ var app = {
 	    nextBtn: document.getElementById('toQ4')
 	  });
 
-	  this.q[4] = new dropdownQuestion({
+	  this.q[3] = new dropdownQuestion({
 	  	wrapper: document.getElementById('q4'),
-	  	question: '<span class="red">QUESTION 4</span><br>あなたのお住まいの都道府県を教えてください',
+	  	question: '<span class="red">QUESTION 3</span><br>あなたのお住まいの都道府県を教えてください',
 	  	answers: [
 				{ value:'北海道', text:'北海道'},
 				{ value:'青森県', text:'青森県'},
@@ -239,9 +239,9 @@ var app = {
 	  	nextBtn: document.getElementById('toQ5')
 	  });
 
-	  this.q[5] = new singleAnswerQuestion({
+	  this.q[4] = new singleAnswerQuestion({
 	  	wrapper: document.getElementById('q5'),
-	  	question: '<span class="red">QUESTION 5</span><br>インターネットで応募して、景品（飲料やお菓子など店頭で販売されている商品）をコンビニで受け取るキャンペーンに応募したことがある',
+	  	question: '<span class="red">QUESTION 4</span><br>インターネットで応募して、景品（飲料やお菓子など店頭で販売されている商品）をコンビニで受け取るキャンペーンに応募したことがある',
 	  	answers: [{
 	    	value: '応募したことがあり、当選して景品を受け取ったことがある',
 	    	text: '応募したことがあり、当選して景品を受け取ったことがある',
@@ -255,9 +255,9 @@ var app = {
 	    nextBtn: document.getElementById('toQ6')
 	  });
 
-	  this.q[6] = new singleAnswerQuestion({
+	  this.q[5] = new singleAnswerQuestion({
 	  	wrapper: document.getElementById('q6'),
-	  	question: '<span class="red">QUESTION 6</span><br>コンビニに行く頻度を教えてください',
+	  	question: '<span class="red">QUESTION 5</span><br>コンビニに行く頻度を教えてください',
 	  	answers: [{
 	    	value: 'ほぼ毎日',
 	    	text: 'ほぼ毎日',
@@ -280,9 +280,9 @@ var app = {
 	    nextBtn: document.getElementById('toQ7')
 	  });
 
-	  this.q[7] = new multipleAnswerQuestion({
+	  this.q[6] = new multipleAnswerQuestion({
 	  	wrapper: document.getElementById('q7'),
-	  	question: '<span class="red">QUESTION 7</span><br>過去３ヶ月以内で来店したコンビニを教えてください（複数選択可）',
+	  	question: '<span class="red">QUESTION 6</span><br>過去３ヶ月以内で来店したコンビニを教えてください（複数選択可）',
 	  	answers: [{
 	    	value: 'セブン-イレブン',
 	    	text: 'セブン-イレブン',
@@ -305,9 +305,9 @@ var app = {
 	    nextBtn: document.getElementById('toQ8')
 	  });
 
-	  this.q[8] = new singleAnswerQuestion({
+	  this.q[7] = new singleAnswerQuestion({
 	  	wrapper: document.getElementById('q8'),
-	  	question: '<span class="red">QUESTION 8</span><br>あなたが一番よく使うコンビニを教えてください',
+	  	question: '<span class="red">QUESTION 7</span><br>あなたが一番よく使うコンビニを教えてください',
 	  	answers: [{
 	    	value: 'セブン-イレブン',
 	    	text: 'セブン-イレブン',

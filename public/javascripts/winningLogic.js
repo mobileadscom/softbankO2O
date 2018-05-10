@@ -2,11 +2,11 @@ import coupon from './coupon';
 
 var winningLogic = {
 	winLogic: {
-		'6': {
+		'5': {
 			value: ['ほぼ毎日', '週４〜５回', '週２〜３回'],
 			priority: [2, 3, 4] // smaller number means higher priority. i.e. if user got Q6 and Q8 correct, winLogic of Q6 will be used because priority number of Q8 is higher.
 		},
-		'8': {
+		'7': {
 			value: 'セブン-イレブン',
 			priority: 5
 		}
@@ -55,7 +55,7 @@ var winningLogic = {
     var result = 'lose';
     var groups = ['','','A','B','C','D'];
     var group = 'NA';
-    if (questions[7].selectedAnswer.indexOf('セブン-イレブン') < 0) {
+    if (questions[6].selectedAnswer.indexOf('セブン-イレブン') < 0) {
       result = 'lose';
     }
     else {
@@ -66,7 +66,7 @@ var winningLogic = {
           group = groups[winPrio];
           if (coupon.count[group] < 1) {
             if (group == 'A' || group == 'B' || group == 'C') {
-              if (questions[8].selectedAnswer == 'セブン-イレブン' && coupon.count['D'] > 0) {
+              if (questions[7].selectedAnswer == 'セブン-イレブン' && coupon.count['D'] > 0) {
                 group = 'D';
                 result = 'win';
               }
