@@ -64,21 +64,22 @@ var app = {
 	  	if (!enableAgreeCheckbox) {
 	  		var element = event.target;
 		    if (element.scrollHeight - element.scrollTop < element.clientHeight + 50) {
-		      document.getElementById('agreeCheck').disabled = false;
-		      enableAgreeCheckbox = true;
+		    	document.getElementById('startSurvey').disabled = false;
+		      /*document.getElementById('agreeCheck').disabled = false;
+		      enableAgreeCheckbox = true;*/
 		    }
 	  	}
 	  });
 	  
 	  /* enable start survey button when terms agree checkbox is checked */
-	  document.getElementById('agreeCheck').onchange = function() {
+	  /*document.getElementById('agreeCheck').onchange = function() {
 	    if (this.checked) {
 				document.getElementById('startSurvey').disabled = false;
 	    }
 	    else {
 	    	document.getElementById('startSurvey').disabled = true;
 	    }
-	  }
+	  }*/
 	  
 	  /* Finished Answering Questions, process result */
 	  var processed = false;
@@ -98,7 +99,7 @@ var app = {
 							document.getElementById('couponLink').href = response.data.couponLink;
 							document.getElementById('couponLink').setAttribute('target', '_blank');
 						  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
-						  // user.passResult(user.info.id, 1, response.data.couponLink);
+						  user.passResult(user.info.id, 1, response.data.couponLink);
 		  			}).catch((error) => {
 		  				console.log(error);
 		  			});
@@ -107,7 +108,7 @@ var app = {
 		  		else {
 		  			user.lose(user.info.id).then((response) => {
 		  				console.log(response);
-		  				// user.passResult(user.info.id, 0);
+		  				user.passResult(user.info.id, 0);
 		  			}).catch((error) => {
 		  				console.log(error);
 		  			});
@@ -155,9 +156,6 @@ var app = {
 	  	answers: [{
 	    	value: '19歳未満',
 	    	text: '19歳未満',
-	    }, {
-	    	value: '20歳〜24歳',
-	    	text: '20歳〜24歳'
 	    }, {
 	    	value: '20歳〜24歳',
 	    	text: '20歳〜24歳'
@@ -298,8 +296,8 @@ var app = {
 	    	value: 'ミニストップ',
 	    	text: 'ミニストップ'
 	    }, {
-	    	value: 'サークルKサンクス',
-	    	text: 'サークルKサンクス'
+	    	value: 'サークルK・サンクス',
+	    	text: 'サークルK・サンクス'
 	    }, {
 	    	text: 'その他',
 	      type: 'text'
@@ -323,8 +321,8 @@ var app = {
 	    	value: 'ミニストップ',
 	    	text: 'ミニストップ'
 	    }, {
-	    	value: 'サークルKサンクス',
-	    	text: 'サークルKサンクス'
+	    	value: 'サークルK・サンクス',
+	    	text: 'サークルK・サンクス'
 	    }, {
 	    	text: 'その他',
 	      type: 'text'

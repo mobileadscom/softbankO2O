@@ -157,6 +157,7 @@ div {
 .msg-wrapper {
   font-weight: 600;
   margin-top: 15px;
+  padding: 0px 20px;
 }
 
 .tnc-wrapper {
@@ -247,6 +248,10 @@ div {
   height: 34px;
   padding: 1px 8px;
   transition: all 0.3s;
+}
+
+#startSurvey {
+  margin-top: 20px;
 }
 
 #couponLink button {
