@@ -93,22 +93,22 @@ var app = {
 	
 	  		if (!user.isWanderer) {
 	  			if (state == 'win') {
-		  			user.win(user.info.id, group).then((response) => {
+		  			user.win(user.info.id, group, user.source).then((response) => {
 							console.log(response);
 							document.getElementById('couponLoader').style.display = 'none';
 							document.getElementById('couponLink').href = response.data.couponLink;
 							document.getElementById('couponLink').setAttribute('target', '_blank');
 						  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
-						  user.passResult(user.info.id, 1, response.data.couponLink);
+						  // user.passResult(user.info.id, 1, response.data.couponLink);
 		  			}).catch((error) => {
 		  				console.log(error);
 		  			});
 		  			this.initResult('win');
 		  		}
 		  		else {
-		  			user.lose(user.info.id).then((response) => {
+		  			user.lose(user.info.id, user.source).then((response) => {
 		  				console.log(response);
-		  				user.passResult(user.info.id, 0);
+		  				// user.passResult(user.info.id, 0);
 		  			}).catch((error) => {
 		  				console.log(error);
 		  			});
@@ -350,7 +350,7 @@ var app = {
 	  coupon.get();
 
 	  /* User Info */
-	  if (!this.params.userId) {
+	  if (!this.params.userId || !this.params.source) {
 		  user.isWanderer = true;
 	    setTimeout(() => {
 		    this.pages.toPage('introPage');
@@ -365,6 +365,7 @@ var app = {
 	    		user.register(this.params.userId).then((res) => { // auto register user
 						console.log(res);
 						user.info.id = this.params.userId;
+						user.source = this.params.source;
 					  this.pages.toPage('introPage');
 	    		}).catch((err) => {
 	    			user.isWanderer = true;
@@ -374,7 +375,7 @@ var app = {
 	    	}
 	    	else { // user is registered
 					user.info = response.data.user;
-
+					user.source = this.params.source;
 					/*apply answer to answered question */
 					var userAnswers = JSON.parse(user.info.Answers);
 					for (var w = 1; w < this.q.length; w++) {
@@ -392,7 +393,7 @@ var app = {
 					}
 					else {
 						if (user.info.noQuestionAnswered > 0 && user.info.noQuestionAnswered < 8) {
-							this.pages.toPage('page' + (user.info.noQuestionAnswered + 1).toString());
+							this.pages.toPage('page' + (user.info.noQuestionAnswered + 2).toString());
 						}
 						else {
 							this.pages.toPage('introPage');

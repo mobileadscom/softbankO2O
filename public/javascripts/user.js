@@ -5,6 +5,7 @@ var domain = 'https://www.mobileads.com';
 
 var user = {
 	isWanderer: false,
+	source: '',
 	info: {},
 	get: function(userId) {
 		var _this = this;
@@ -27,17 +28,19 @@ var user = {
     ansForm.append('answer', answer)
     return axios.post(domain + '/api/coupon/softbank/user_answer_save', ansForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 	},
-	win: function(userId, group) {
+	win: function(userId, group, source) {
 		var markForm = new FormData();
     markForm.append('id', userId);
     markForm.append('state', 'win');
     markForm.append('couponGroup', group);
+    markForm.append('source', source);
     return axios.post(domain + '/api/coupon/softbank/mark_user', markForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 	},
-	lose: function(userId) {
+	lose: function(userId, source) {
 		var markForm = new FormData();
     markForm.append('id', userId);
     markForm.append('state', 'lose');
+    markForm.append('source', source);
     return axios.post(domain + '/api/coupon/softbank/mark_user', markForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 	},
 	passResult: function(userId, flag, couponLink) { // flag: 1 = win, 0 = lose
