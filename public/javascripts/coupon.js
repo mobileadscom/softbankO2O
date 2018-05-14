@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-var domain = 'https://www.mobileads.com';
-// var domain = 'http://192.168.99.100';
+// var domain = 'https://www.mobileads.com';
+var domain = 'http://192.168.99.100';
 
 var coupon = {
 	count: {

@@ -389,10 +389,21 @@ var app = {
 					user.info = response.data.user;
 					user.source = this.params.source;
 					/*apply answer to answered question */
-					var userAnswers = JSON.parse(user.info.Answers);
-					if (!userAnswers) {
-						userAnswers = JSON.parse(localStorage.getItem('answers'));
+					var localAnswers = JSON.parse(localStorage.getItem('localAnswers'));
+					var userAnswers = [];
+					var noQuestionAnswered = 0;
+					if (localAnswers) {
+						if (localAnswers.hasOwnProperty(user.info.id)) {
+							userAnswers = localAnswers[user.info.id];
+							noQuestionAnswered = userAnswers.length - 1;
+						}
 					}
+					
+					if (!userAnswers) {
+						userAnswers = JSON.parse(user.info.Answers);
+						noQuestionAnswered = user.info.noQuestionAnswered;
+					}
+
 					for (var w = 1; w < this.q.length; w++) {
 						if (userAnswers[w]) {
 						  this.q[w].setAnswer(userAnswers[w]);
@@ -407,8 +418,8 @@ var app = {
 						this.pages.toPage('resultPage');
 					}
 					else {
-						if (user.info.noQuestionAnswered > 0 && user.info.noQuestionAnswered < 8) {
-							this.pages.toPage('page' + (user.info.noQuestionAnswered + 2).toString());
+						if (noQuestionAnswered > 0 && noQuestionAnswered < 8) {
+							this.pages.toPage('page' + (noQuestionAnswered + 2).toString());
 						}
 						else {
 							this.pages.toPage('introPage');
@@ -426,20 +437,27 @@ var app = {
 		  for (var s = 0; s < saveBtns.length; s++ ) {
 		  	saveBtns[s].addEventListener('click', (e) => {
 		  		if (typeof(Storage) !== "undefined") {
+		  			var localAnswers = JSON.parse(localStorage.getItem('localAnswers'));
+		  			if (!localAnswers) {
+		  				localAnswers = {};
+			  		}
 				  	var qArray = [];
 				  	for (var n = 1; n < this.q.length; n++) {
 							if (this.q[n].selectedAnswer) {
-								qArray.push(this.q[n].selectedAnswer);
+								qArray[n] = this.q[n].selectedAnswer;
+								// qArray.push(this.q[n].selectedAnswer);
 							}
 				  	}
-				  	localStorage.setItem('answers', JSON.stringify(qArray));
+				  	localAnswers[user.info.id] = qArray;
+				  	localStorage.setItem('localAnswers', JSON.stringify(localAnswers));
 		  		}
 		  		var qNo = parseInt(e.target.dataset.question);
-				  user.saveAnswer(this.params.userId, qNo, this.q[qNo].selectedAnswer).then((response) => {
+		  		user.trackAnswer(this.params.userId, qNo, this.q[qNo].selectedAnswer);
+				  /*user.saveAnswer(this.params.userId, qNo, this.q[qNo].selectedAnswer).then((response) => {
 				  	console.log(response);
 				  }).catch((error) => {
 				  	console.log(error);
-				  });
+				  });*/
 		  	})
 		  }
 		}

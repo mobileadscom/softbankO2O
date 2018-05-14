@@ -1,7 +1,14 @@
 import axios from 'axios';
 
-var domain = 'https://www.mobileads.com';
-// var domain = 'http://192.168.99.100';
+// var domain = 'https://www.mobileads.com';
+var domain = 'http://192.168.99.100';
+
+var campaignId = 'ca8ca8c34a363fa07b2d38d007ca55c6';
+var adUserId = '4441';
+var rmaId = '1';
+var generalUrl = 'https://track.richmediaads.com/a/analytic.htm?rmaId={{rmaId}}&domainId=0&pageLoadId={{cb}}&userId={{adUserId}}&pubUserId=0&campaignId={{campaignId}}&callback=trackSuccess&type={{type}}&value={{value}}&uniqueId={{userId}}';
+
+var trackingUrl = generalUrl.replace('{{rmaId}}', rmaId).replace('{{campaignId}}', campaignId).replace('{{adUserId}}', adUserId).replace('{{cb}}', Date.now().toString());
 
 var user = {
 	isWanderer: false,
@@ -27,6 +34,14 @@ var user = {
     ansForm.append('questionNo', questionNo);
     ansForm.append('answer', answer)
     return axios.post(domain + '/api/coupon/softbank/user_answer_save', ansForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+	},
+	trackAnswer: function(userId, questionNo, answer) {
+		var type = 'q_a';
+		var value = questionNo.toString() + '_' + encodeURIComponent(answer);
+		console.log(generalUrl, trackingUrl);
+		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', value).replace('{{userId}}', userId);
+		console.log(url);
+		// return axios.get('')
 	},
 	win: function(userId, group) {
 		var markForm = new FormData();
