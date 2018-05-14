@@ -70,7 +70,7 @@ var winningLogic = {
           group = groups[winPrio];
           if (coupon.count[group] < 1) {
             if (group == 'A' || group == 'B' || group == 'C') {
-              if (questions[6].selectedAnswer.indexOf('セブン-イレブン') > -1 && coupon.count['D'] > 0) {
+              if (questions[7].selectedAnswer == 'セブン-イレブン' && coupon.count['D'] > 0) {
                 group = 'D';
                 actualResult = 'win';
                 flag = '1';
