@@ -52,37 +52,46 @@ var winningLogic = {
     	}
     }
     
-    var result = 'lose';
+    var trackingResult = 'lose'; // result to be tracked via custom ad tracking
     var groups = ['','','A','B','C','D'];
     var group = 'NA';
+    var flag = '0'; // result to be stored in client side
+    var actualResult = 'lose' // result to be stored to db via /mark_user, also shown in result page
+
     if (questions[6].selectedAnswer.indexOf('セブン-イレブン') < 0) {
-      result = 'lose';
+      trackingResult = 'lose';
     }
     else {
       if (winPrio < losePrio) {
-        result = 'win';
-
+        trackingResult = 'win';
+        actualResult = 'win';
+        flag = '1';
         if (considerGroup) {
           group = groups[winPrio];
           if (coupon.count[group] < 1) {
             if (group == 'A' || group == 'B' || group == 'C') {
-              if (questions[7].selectedAnswer == 'セブン-イレブン' && coupon.count['D'] > 0) {
+              if (questions[6].selectedAnswer.indexOf('セブン-イレブン') > -1 && coupon.count['D'] > 0) {
                 group = 'D';
-                result = 'win';
+                actualResult = 'win';
+                flag = '1';
               }
               else {
-                result = 'lose';
+                actualResult = "lose";
+                flag = '0';
               }
             }
             else {
-              result = 'lose';
+              actualResult = "lose";
+              flag = '0';
             }
           }
         }   
       }
     }
     return {
-      result: result,
+      trackingResult: trackingResult,
+      actualResult: actualResult,
+      flag: flag,
       group: group
     }
 	}

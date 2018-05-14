@@ -40,7 +40,7 @@ var app = {
 				document.getElementById('resultInstruction').style.display = 'none;'
 			}
 			else {
-				document.getElementById('resultInstruction').innerHTML = "クーポンを受け取って、セブンーイレブンで引き換えてください";
+				document.getElementById('resultInstruction').innerHTML = "クーポンを受け取って、セブン-イレブンで引き換えてください";
 			}
 
 			if (couponLink) {
@@ -88,31 +88,43 @@ var app = {
 	  		processed = true;
 	  		var resultProperties = winningLogic.process(this.q, !user.isWanderer);
 	  		console.log(resultProperties);
-	  		var state = resultProperties.result;
+	  		var state = resultProperties.trackingResult;
+	  		var actualResult = resultProperties.actualResult;
 	  		var group = resultProperties.group;
+	  		var flag = resultProperties.flag;
 	
 	  		if (!user.isWanderer) {
-	  			if (state == 'win') {
-		  			user.win(user.info.id, group, user.source).then((response) => {
+	  			if (actualResult == 'win') {
+		  			user.win(user.info.id, group).then((response) => {
 							console.log(response);
-							document.getElementById('couponLoader').style.display = 'none';
-							document.getElementById('couponLink').href = response.data.couponLink;
-							document.getElementById('couponLink').setAttribute('target', '_blank');
-						  document.getElementById('getCoupon').innerText = 'クーポンを受け取る';
-						  // user.passResult(user.info.id, 1, response.data.couponLink);
+							if (response.data.couponLink) {
+								this.initResult('win', response.data.couponLink);
+								user.passResult(user.info.id, flag, user.source, response.data.couponLink);
+							}
+							else {
+								this.initResult('lose');
+								user.passResult(user.info.id, flag, user.source);
+							}
 		  			}).catch((error) => {
 		  				console.log(error);
+			  			this.initResult('win');
 		  			});
-		  			this.initResult('win');
 		  		}
 		  		else {
-		  			user.lose(user.info.id, user.source).then((response) => {
+		  			user.lose(user.info.id).then((response) => {
 		  				console.log(response);
-		  				// user.passResult(user.info.id, 0);
+		  				user.passResult(user.info.id, flag, user.source);
 		  			}).catch((error) => {
 		  				console.log(error);
 		  			});
 		  			this.initResult('lose');
+		  		}
+
+		  		if (state == 'win') {
+		  			//track win
+		  		}
+		  		else {
+		  			// track lose
 		  		}
 	  		}
 	  		else {
@@ -378,6 +390,9 @@ var app = {
 					user.source = this.params.source;
 					/*apply answer to answered question */
 					var userAnswers = JSON.parse(user.info.Answers);
+					if (!userAnswers) {
+						userAnswers = JSON.parse(localStorage.getItem('answers'));
+					}
 					for (var w = 1; w < this.q.length; w++) {
 						if (userAnswers[w]) {
 						  this.q[w].setAnswer(userAnswers[w]);
@@ -410,6 +425,15 @@ var app = {
 		  var saveBtns = document.getElementsByClassName('saveQuestion');
 		  for (var s = 0; s < saveBtns.length; s++ ) {
 		  	saveBtns[s].addEventListener('click', (e) => {
+		  		if (typeof(Storage) !== "undefined") {
+				  	var qArray = [];
+				  	for (var n = 1; n < this.q.length; n++) {
+							if (this.q[n].selectedAnswer) {
+								qArray.push(this.q[n].selectedAnswer);
+							}
+				  	}
+				  	localStorage.setItem('answers', JSON.stringify(qArray));
+		  		}
 		  		var qNo = parseInt(e.target.dataset.question);
 				  user.saveAnswer(this.params.userId, qNo, this.q[qNo].selectedAnswer).then((response) => {
 				  	console.log(response);
