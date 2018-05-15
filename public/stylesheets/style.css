@@ -126,8 +126,11 @@ div {
 
 .banner {
   width: 100%;
-  background-color: #EBEBEB;
+  /*background-color: #EBEBEB;*/
   text-align: left;
+  background-image: url('../images/header-bg.png');
+  background-size: auto 100%;
+  background-repeat: repeat-x;
 }
 
 .banner img {
@@ -241,8 +244,8 @@ div {
 .page .pagination-wrapper button, #toTerms, #startSurvey, #couponLink button {
   border-radius: 3px;
   font-size: 1.25em;
-  border: 1px solid #1983FF;
-  background-color: #1983FF;
+  border: 1px solid #f89b33;
+  background-color: #f89b33;
   color: white;
   width: 100px;
   height: 34px;
@@ -262,7 +265,7 @@ div {
 .page .question-no {
   display: inline-block;
   margin: 0px 10px;
-  color: #1983FF;
+  color: #E54C3C;
   font-weight: 600;
 }
 
