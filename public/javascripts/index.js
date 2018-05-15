@@ -122,8 +122,10 @@ var app = {
 
 		  		if (state == 'win') {
 		  			//track win
+		  			user.trackWin(user.info.id);
 		  		}
 		  		else {
+		  			user.trackLose(user.info.id);
 		  			// track lose
 		  		}
 	  		}
@@ -445,7 +447,6 @@ var app = {
 				  	for (var n = 1; n < this.q.length; n++) {
 							if (this.q[n].selectedAnswer) {
 								qArray[n] = this.q[n].selectedAnswer;
-								// qArray.push(this.q[n].selectedAnswer);
 							}
 				  	}
 				  	localAnswers[user.info.id] = qArray;

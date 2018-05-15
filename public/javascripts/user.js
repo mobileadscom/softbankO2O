@@ -37,11 +37,10 @@ var user = {
 	},
 	trackAnswer: function(userId, questionNo, answer) {
 		var type = 'q_a';
-		var value = questionNo.toString() + '_' + encodeURIComponent(answer);
-		console.log(generalUrl, trackingUrl);
+		var value = 'q' + questionNo.toString() + '_' + encodeURIComponent(answer);
 		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', value).replace('{{userId}}', userId);
 		console.log(url);
-		// return axios.get('')
+		// return axios.get(url)
 	},
 	win: function(userId, group) {
 		var markForm = new FormData();
@@ -49,6 +48,18 @@ var user = {
     markForm.append('state', 'win');
     markForm.append('couponGroup', group);
     return axios.post(domain + '/api/coupon/softbank/mark_user', markForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+	},
+	trackWin: function(userId) {
+		var type = 'win';
+		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', '').replace('{{userId}}', userId);
+		console.log(url);
+		// return axios.get(url);
+	},
+	trackLose: function(userId) {
+		var type = 'lose';
+		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', '').replace('{{userId}}', userId);
+		console.log(url);
+		// return axios.get(url);
 	},
 	lose: function(userId) {
 		var markForm = new FormData();
