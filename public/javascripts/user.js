@@ -39,32 +39,31 @@ var user = {
 		var type = 'q_a';
 		var value = 'q' + questionNo.toString() + '_' + encodeURIComponent(answer);
 		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', value).replace('{{userId}}', userId);
-		console.log(url);
-		// return axios.get(url)
+		return axios.get(url);
 	},
-	win: function(userId, group) {
+	win: function(userId, group, source) {
 		var markForm = new FormData();
     markForm.append('id', userId);
     markForm.append('state', 'win');
     markForm.append('couponGroup', group);
+    markForm.append('source', source);
     return axios.post(domain + '/api/coupon/softbank/mark_user', markForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 	},
 	trackWin: function(userId) {
 		var type = 'win';
 		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', '').replace('{{userId}}', userId);
-		console.log(url);
-		// return axios.get(url);
+		return axios.get(url);
 	},
 	trackLose: function(userId) {
 		var type = 'lose';
 		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', '').replace('{{userId}}', userId);
-		console.log(url);
-		// return axios.get(url);
+		return axios.get(url);
 	},
-	lose: function(userId) {
+	lose: function(userId, source) {
 		var markForm = new FormData();
     markForm.append('id', userId);
     markForm.append('state', 'lose');
+	  markForm.append('source', source);
     return axios.post(domain + '/api/coupon/softbank/mark_user', markForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 	},
 	passResult: function(userId, flag, source, couponLink) { // flag: 1 = win, 0 = lose

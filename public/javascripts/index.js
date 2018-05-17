@@ -95,7 +95,7 @@ var app = {
 	
 	  		if (!user.isWanderer) {
 	  			if (actualResult == 'win') {
-		  			user.win(user.info.id, group).then((response) => {
+		  			user.win(user.info.id, group, user.source).then((response) => {
 							console.log(response);
 							if (response.data.couponLink) {
 								this.initResult('win', response.data.couponLink);
@@ -111,7 +111,7 @@ var app = {
 		  			});
 		  		}
 		  		else {
-		  			user.lose(user.info.id).then((response) => {
+		  			user.lose(user.info.id, user.source).then((response) => {
 		  				console.log(response);
 		  				user.passResult(user.info.id, flag, user.source);
 		  			}).catch((error) => {
@@ -360,9 +360,6 @@ var app = {
     /* apply mini select to <select> */
 	  miniSelect.init('miniSelect');
 
-    /* get coupons */
-	  coupon.get();
-
 	  /* User Info */
 	  if (!this.params.userId || !this.params.source) {
 		  user.isWanderer = true;
@@ -461,6 +458,9 @@ var app = {
 				  });*/
 		  	})
 		  }
+
+	    /* get coupons */
+			coupon.get(this.params.source);
 		}
 	}
 }

@@ -10,9 +10,13 @@ var coupon = {
 		C: 0,
 		D: 0
 	},
-	get: function() {
+	get: function(source) {
 		var _this = this;
-    axios.get(domain + '/api/coupon/softbank/coupons_check').then(function(response) {
+    axios.get(domain + '/api/coupon/softbank/coupons_check', {
+    	params: {
+    		source: source
+    	}
+    }).then(function(response) {
       console.log(response);
       _this.count.A = response.data.A;
       _this.count.B = response.data.B;
