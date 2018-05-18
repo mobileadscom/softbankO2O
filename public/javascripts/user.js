@@ -26,6 +26,12 @@ var user = {
 		var _this = this;
 		var regForm = new FormData();
     regForm.append('id', userId);
+
+    // track as impression
+    var type = 'page_view';
+		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', '').replace('{{userId}}', userId);
+		axios.get(url);
+
     return axios.post(domain + '/api/coupon/softbank/register', regForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 	},
 	saveAnswer: function(userId, questionNo, answer) {
@@ -52,11 +58,13 @@ var user = {
 	trackWin: function(userId) {
 		var type = 'win';
 		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', '').replace('{{userId}}', userId);
+		url += '&tt=E&ty=E';
 		return axios.get(url);
 	},
 	trackLose: function(userId) {
 		var type = 'lose';
 		var url = trackingUrl.replace('{{type}}', type).replace('{{value}}', '').replace('{{userId}}', userId);
+		url += '&tt=E&ty=E';
 		return axios.get(url);
 	},
 	lose: function(userId, source) {
