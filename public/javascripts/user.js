@@ -78,10 +78,10 @@ var user = {
 		var psForm = new FormData();
 		psForm.append('user_id', userId);
 		psForm.append('flag', flag);
-    psForm.append('campaign_id', 'ca8ca8c34a363fa07b2d38d007ca55c6');
+	    psForm.append('campaign_id', 'ca8ca8c34a363fa07b2d38d007ca55c6');
 		psForm.append('source', source);
 		if (couponLink) {
-			psForm.append('coupon_url', couponLink);
+			psForm.append('coupon_url', encodeURIComponent(couponLink));
 		}
 		return axios.post(domain + '/api/coupon/softbank/api_call', psForm, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 	}
